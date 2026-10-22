@@ -1,4 +1,4 @@
-/* CNRFormat Mobile v1.0 — offline-first single-page deck builder. */
+/* CNRFormat Mobile v1.2 — offline-first deck builder, consistency lab, and competition manager. */
 (async function(){
  'use strict';
  const L=window.CNRLogic, Lab=window.CNRLab;
@@ -28,7 +28,7 @@
  }
  function view(name){state.view=name;for(const el of document.querySelectorAll('.view'))el.classList.toggle('active',el.id==='view-'+name);
  for(const b of document.querySelectorAll('[data-view]')){b.classList.toggle('active',b.dataset.view===name);if(b.dataset.view===name)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}
- if(name==='builder')renderBuilder();if(name==='library')renderLibrary();if(name==='discover')renderCatalog();if(name==='rules')renderSyncDetails();if(name==='lab')renderLab();window.scrollTo({top:0,behavior:'instant'});
+ if(name==='builder')renderBuilder();if(name==='library')renderLibrary();if(name==='discover')renderCatalog();if(name==='rules')renderSyncDetails();if(name==='lab')renderLab();if(name==='competition')window.CNRCompetitionUI?.render();window.scrollTo({top:0,behavior:'instant'});
  }
  function verdictClass(v){return v==='LEGAL'?'status-good':v==='BANNED'||v==='ILLEGAL'?'status-bad':'status-review';}
  function showStats(){const audit=L.auditDeck(state.deck,state.cards,state.idx);$('stat-cards').textContent=number(state.all.length);
@@ -164,6 +164,7 @@
   state.rules=await rResp.json();const seed=await sResp.json();state.idx=L.createIndex(state.rules);makeAnnotations(seed);
   state.deck=L.normalizeDeck(storage('cnr-current-v1',L.newDeck()));state.library=(storage('cnr-library-v1',[])||[]).slice(0,250).map(L.normalizeDeck);
   await CNRStore.open();if(await CNRStore.count()===0)await CNRStore.putMany(enrichSeed(seed));await hydrateCatalog();
+  window.CNRCompetitionUI.init({getDecks:()=>state.library, getCard:(key)=>state.cards.get(key),toast});
   initEvents();$('online-text').textContent=navigator.onLine?'Online · offline-ready':'Offline mode';registerSW();
  }catch(e){console.error(e);$('results-caption').textContent='Failed to load app';$('card-results').innerHTML=`<div class="empty-state"><strong>App needs a web server</strong>Open this via GitHub Pages or localhost, not a direct file:// link. ${sanitize(e.message)}</div>`;}}
  function initEvents(){document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>view(b.dataset.view)));

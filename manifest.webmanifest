@@ -1,8 +1,8 @@
 {
   "id":"./index.html",
-  "name":"CNRFormat — Deck Lab",
+  "name":"CNRFormat — Deck Lab & Competition",
   "short_name":"CNRFormat",
-  "description":"Offline-first Yu-Gi-Oh! CNR format card catalog, deck builder, legality audit and mathematical opening-hand lab.",
+  "description":"Offline-first Yu-Gi-Oh! CNR format card catalog, deck builder, legality audit and opening-hand optimization and competitive match recording.",
   "start_url":"./index.html",
   "scope":"./",
   "display":"standalone",

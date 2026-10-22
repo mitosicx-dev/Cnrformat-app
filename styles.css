@@ -44,3 +44,54 @@
 .lab-help{font-size:11px;color:#a0b8d7;padding:14px;line-height:1.7}.lab-note{font-size:11px;color:#a4b9d5;line-height:1.6;margin:14px 2px 0}
 @media(max-width:690px){.bottom-nav button{font-size:8px}.bottom-nav button span{font-size:20px}.role-row{grid-template-columns:1fr;gap:8px}.role-btn{padding:7px 8px}.lab-controls{grid-template-columns:1fr 1fr}.lab-controls label:last-child{grid-column:1/-1}.lab-metric-grid{grid-template-columns:1fr 1fr}.lab-metric{padding:12px}.lab-metric strong{font-size:22px}.lab-metric label{font-size:10px}.lab-table th,.lab-table td{padding:10px 6px;font-size:10px}}
 @media(max-width:380px){.lab-compare-selectors{grid-template-columns:1fr}.lab-tile{padding:10px 7px}.lab-tile strong{font-size:21px}}
+/* Phase 4 — competition dashboard (mobile-first, same visual language). */
+.competition-shell{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:15px;align-items:start}
+.competition-block{margin:14px 0;padding:21px;background:linear-gradient(130deg,#13223a,#0d172a);border:1px solid #2c4564;border-radius:15px;min-width:0}
+.competition-block h3{margin:9px 0 10px;font-size:17px;letter-spacing:-.25px}
+.comp-muted{font-size:11px;line-height:1.6;color:#8ba4c3;margin:8px 0}
+.comp-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:13px 0}
+.comp-form-grid label,.comp-record-form>label,.comp-action-row label{display:flex;flex-direction:column;gap:6px;font-size:10px;color:#92b2d3;font-weight:800;letter-spacing:.25px;min-width:0}
+.comp-form-grid select,.comp-form-grid input,.comp-add-row select,.comp-add-row input,.comp-action-row input,.comp-record-form textarea{min-height:39px;padding:10px 11px;width:100%;font-size:12px}
+.comp-add-row{display:flex;gap:9px;align-items:center;margin:10px 0}.comp-add-row input,.comp-add-row select{flex:1;min-width:0}.comp-add-row .btn{flex-shrink:0}
+.comp-action-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:13px 0}.comp-action-row .tag{white-space:normal}
+.comp-roster-header{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#aac0dc;border-top:1px solid #32455e;padding-top:13px;margin:17px 0 8px}
+.competition-roster{display:grid;gap:7px;max-height:290px;overflow-y:auto;padding-right:3px}
+.competition-entry{display:flex;align-items:center;gap:9px;background:#172742;border:1px solid #2d4666;border-radius:10px;padding:9px}
+.comp-number{display:grid;place-items:center;min-width:26px;height:26px;border-radius:7px;color:#67dbff;background:#153254;font-size:11px;font-weight:900}
+.comp-entry-name{flex:1;min-width:0;font-weight:750;font-size:12px;overflow-wrap:anywhere}
+.comp-entry-name small{display:block;color:#819ab7;font-size:10px;font-weight:500;margin-top:3px}
+.comp-create{width:100%;margin-top:14px}
+.comp-progress-track{height:10px;background:#243b55;border-radius:99px;overflow:hidden;margin:16px 0 8px}
+.comp-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#347bfc,#4bdbcc);transition:width .2s}
+.comp-progress-text{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:#93a9c5;flex-wrap:wrap}
+.comp-progress-text b{color:#dceafb}
+.comp-table-wrap{max-height:510px;overflow:auto;border:1px solid #33475c;border-radius:10px}
+.comp-table{width:100%;border-collapse:collapse;font-size:11px;white-space:nowrap;text-align:left}
+.comp-table thead{background:#22385a;position:sticky;top:0}
+.comp-table th,.comp-table td{padding:11px 9px;border-bottom:1px solid #273b54}
+.comp-table td:nth-child(2){white-space:normal;min-width:145px;max-width:220px}
+.comp-table td small{display:block;font-size:9px;color:#829cb6;margin-top:5px}
+.comp-table tbody tr:nth-child(even){background:#12243a77}
+.comp-match-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-height:380px;overflow:auto;padding:2px}
+.comp-fixture{display:block;width:100%;text-align:left;border:1px solid #344b69;border-radius:11px;background:#15243c;color:#e9f5ff;padding:11px;font-size:11px}
+.comp-fixture:hover,.comp-fixture.chosen{border-color:#59bbef;background:#19385b}
+.comp-fixture-top{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:9px;color:#89a4bd;letter-spacing:.5px;font-weight:800;margin-bottom:7px}
+.comp-fixture-state{color:#edcb7b}.comp-fixture-state.done{color:#74e6bb}
+.comp-fixture-teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px;font-weight:770}
+.comp-fixture-teams span:last-child{text-align:right}.comp-fixture-teams strong{font-size:13px;color:#6dd9f8;white-space:nowrap}
+.comp-detail-head{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.comp-detail-head h3{font-size:19px;line-height:1.35;margin:6px 0}.comp-detail-head h3 span{color:#7f9aba;font-size:12px}
+.comp-record-form{background:#172b45;border-radius:13px;border:1px solid #2c4969;padding:14px;margin-top:17px}
+.comp-record-form textarea{resize:vertical;display:block;max-width:100%;margin-top:4px}
+.comp-record-form .btn{max-width:100%;min-height:42px;white-space:normal;text-align:center}
+.comp-history{display:grid;gap:6px}
+.comp-history>div{font-size:11px;background:#111f33;border-left:2px solid #63c4f3;padding:10px;border-radius:4px;line-height:1.5}
+.comp-history span{color:#90aac6}.comp-history p{margin:5px 0 0;color:#b7cde8;white-space:pre-wrap}
+.comp-sampler{margin-top:20px;border-top:1px solid #324862;padding-top:16px}
+.comp-sampler .comp-action-row label{width:160px;max-width:40%}
+.comp-hand-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.comp-hand-grid>div{border-radius:10px;background:#122238;border:1px solid #2b4360;padding:12px;min-width:0}
+.comp-hand-grid strong{font-size:12px;color:#79ddff}.comp-hand-grid ol{padding-left:22px;margin:8px 0 0}.comp-hand-grid li{font-size:11px;color:#b8cde6;padding:4px 0;overflow-wrap:anywhere}
+@media(max-width:1000px){.competition-shell{grid-template-columns:1fr}}
+@media(max-width:690px){.competition-block{padding:14px;margin:12px 0}.comp-form-grid{grid-template-columns:1fr 1fr;gap:8px}.comp-match-list{grid-template-columns:1fr}.comp-fixture{padding:12px}.comp-table th,.comp-table td{padding:9px 5px;font-size:10px}.comp-table td:nth-child(2){min-width:125px}.bottom-nav button{min-width:0;font-size:8px}.bottom-nav button span{font-size:19px}}
+@media(max-width:390px){.comp-form-grid{grid-template-columns:1fr}.comp-add-row .btn{padding:8px;font-size:10px}.bottom-nav button{font-size:7px}.bottom-nav button span{font-size:18px}}

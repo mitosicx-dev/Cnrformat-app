@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<meta name="theme-color" content="#080e1e"/><meta name="description" content="Offline-first Yu-Gi-Oh! CNR deck builder with custom legality checks, card catalog, and YDKE deck export."/>
+<meta name="theme-color" content="#080e1e"/><meta name="description" content="CNR deck builder, legal card explorer, optimization lab, and competitive tournament manager."/>
 <link rel="manifest" href="./manifest.webmanifest"/><link rel="icon" type="image/png" href="./icon-192.png"/>
 <link rel="stylesheet" href="./styles.css"/>
 <title>CNRFormat · Deck Lab</title>
@@ -12,7 +12,7 @@
  <div class="top-actions"><span class="signal" id="signal"><span class="dot"></span><span id="online-text">Offline-ready</span></span><button class="icon-btn" id="install-btn" title="Install app" aria-label="Install app" hidden>⇩</button></div>
 </header>
 <main>
-<div class="hero"><div class="hero-glow"></div><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> COMPETITIVE DECK COMMAND CENTER <span class="hero-version">v1.1 · PHASE 3</span></div><h1>Build beyond<br/><em>the meta.</em></h1><p>Every card. Every restriction. One format built for your rules.</p><div class="hero-pills"><span class="pill">⚔ CNR Format</span><span class="pill">10,000 LP</span><span class="pill">20-card Extra</span></div></div><div class="hero-mark" aria-hidden="true"><div class="ring outer"></div><div class="ring inner"></div><div class="mark-letter">C</div><div class="ring-word">COMMANDER</div></div></div>
+<div class="hero"><div class="hero-glow"></div><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> COMPETITIVE DECK COMMAND CENTER <span class="hero-version">v1.2 · PHASE 4</span></div><h1>Build beyond<br/><em>the meta.</em></h1><p>Every card. Every restriction. One format built for your rules.</p><div class="hero-pills"><span class="pill">⚔ CNR Format</span><span class="pill">10,000 LP</span><span class="pill">20-card Extra</span></div></div><div class="hero-mark" aria-hidden="true"><div class="ring outer"></div><div class="ring inner"></div><div class="mark-letter">C</div><div class="ring-word">COMMANDER</div></div></div>
 <section class="stats" aria-label="Database and deck overview">
  <div class="stat"><span class="stat-label">CARD DATABASE</span><strong id="stat-cards">—</strong><span class="stat-foot" id="stat-source">Loading snapshot</span></div>
  <div class="stat"><span class="stat-label">ACTIVE DECK</span><strong id="stat-total">0 <small>/ 40 min</small></strong><span class="stat-foot" id="stat-deck">Main deck cards</span></div>
@@ -23,6 +23,7 @@
 <button class="nav-btn active" data-view="discover"><span class="nav-symbol">⌕</span><span>Card Database</span></button>
 <button class="nav-btn" data-view="builder"><span class="nav-symbol">▦</span><span>Deck Builder</span></button>
 <button class="nav-btn" data-view="lab"><span class="nav-symbol">◈</span><span>Optimization Lab</span></button>
+<button class="nav-btn" data-view="competition"><span class="nav-symbol">⚔</span><span>Competitive Testing</span></button>
 <button class="nav-btn" data-view="library"><span class="nav-symbol">▣</span><span>My Decks</span></button>
 <button class="nav-btn" data-view="rules"><span class="nav-symbol">⚙</span><span>CNR Rules & Sync</span></button>
 <div class="side-footer"><div class="small-label">CURRENT RULESET</div><strong>CNR · 2026.10.21</strong><p>Provisional classifications. Verify before tournament use.</p></div>
@@ -61,6 +62,29 @@
 <div id="lab-compare" class="lab-compare"></div>
 <div class="lab-notice"><strong>Evidence policy</strong><p><b>CALCULATED</b> = exact probability from the entered ratios. <b>SAMPLED</b> = reproducible random hands. <b>USER-TAGGED</b> = your card role assumptions. <b>NOT TESTED</b> = legal combo sequences, interruptions, opponent interactions and win rates. Never present this Lab's output as a proven competitive ranking.</p></div>
 </section>
+<section class="view" id="view-competition" aria-label="Competitive Testing Tournament Manager">
+<div class="section-heading"><div><div class="kicker">PHASE 4 · COMPETITIVE TESTING</div><h2>Competition Center <span class="tag REVIEW">BETA</span></h2><p>Create best-of-3 matches or full round robins, deal opening hands, record actual duels and rank decks from real results.</p></div></div>
+<div class="lab-notice"><strong>Evidence first</strong><p>This app <b>does not automatically play Yu-Gi-Oh! or resolve card effects</b>. Match records come from games you play or verify externally. Opening-hand samples are not AI duels. Recorded win percentages are descriptive statistics, not predictions.</p></div>
+<div class="competition-shell">
+<div class="competition-block">
+<div class="kicker">NEW COMPETITION</div><h3>Build a tournament roster</h3><div class="comp-form-grid"><label>Competition name<input id="comp-tournament-name" maxlength="100" value="CNR Format Championship"/></label><label>Format<select id="comp-mode"><option value="round_robin">Round robin (2–24 decks)</option><option value="single">Single best-of-3 (2 decks)</option></select></label></div>
+<div class="comp-action-row"><button type="button" class="btn btn-outline small" id="comp-24">Load my 24-deck roster</button><span class="comp-muted">Names only · no decklists are invented</span></div>
+<div class="comp-add-row"><input id="comp-name" placeholder="Type a deck or archetype name…" maxlength="90" aria-label="Deck name"/><button type="button" class="btn btn-outline" id="comp-add-name">+ Add name</button></div>
+<div class="comp-add-row"><select id="comp-saved" aria-label="Saved deck to add"><option value="">Choose a saved deck…</option></select><button type="button" class="btn btn-outline" id="comp-add-saved">+ Add saved deck</button></div>
+<div class="comp-roster-header"><strong>Draft roster</strong><span id="comp-roster-count">0 / 24 decks</span></div><div id="comp-roster" class="competition-roster"></div>
+<button type="button" id="comp-create" class="btn btn-primary comp-create">Create fixtures</button><p class="comp-muted">A saved deck's cardlist is copied into the tournament at creation. Future edits won't silently change recorded matchups.</p>
+</div>
+<div class="competition-block"><div class="kicker">MY COMPETITIONS</div><h3>Continue testing</h3><div class="comp-add-row"><select id="comp-selector" aria-label="Select competition"><option value="">No competition selected</option></select><button type="button" class="btn btn-quiet small" id="comp-delete">Delete</button></div><div class="comp-action-row"><button type="button" class="btn btn-outline" id="comp-export">Download competition backup</button><label class="btn btn-outline upload-label">Restore competition backup<input id="comp-import" type="file" accept=".json,application/json" hidden/></label></div><p class="comp-muted">Tournament data is stored separately from My Decks. Back up both before clearing your browser's website data.</p></div>
+</div>
+<div id="comp-placeholder" class="empty-state">Create or restore a competition to see fixtures, recorded results, and standings.</div>
+<div id="comp-active" hidden>
+<div class="competition-block"><div class="kicker">ACTIVE COMPETITION</div><h3 id="comp-title"></h3><p id="comp-subtitle" class="comp-muted"></p><div id="comp-status-tags" class="comp-action-row"></div><div class="comp-progress-track"><div class="comp-progress-fill" id="comp-progress"></div></div><div class="comp-progress-text"><b id="comp-progress-label"></b><span id="comp-progress-caption"></span></div></div>
+<div class="competition-block"><div class="kicker">ATTACH SAVED DECKLISTS</div><h3>Add a decklist to a name-only slot</h3><p class="comp-muted">You can attach a deck saved in My Decks until that entry plays its first recorded game. This unlocks the five-card dealer without requiring role tags.</p><div class="comp-add-row"><select id="comp-attach-team" aria-label="Tournament participant"><option value="">Choose a tournament slot…</option></select><select id="comp-attach-saved" aria-label="Saved decklist to attach"><option value="">Choose saved deck…</option></select></div><button type="button" class="btn btn-outline" id="comp-attach">Attach this decklist</button></div>
+<div class="competition-block"><div class="kicker">STANDINGS</div><h3>Ranked by actual recorded matches</h3><div id="comp-standings"></div><button type="button" id="comp-report" class="btn btn-outline small" style="margin-top:14px">Download tournament report JSON</button></div>
+<div class="competition-block"><div class="kicker">BEST-OF-3 FIXTURES</div><h3>Choose a matchup</h3><div class="comp-form-grid"><label>Status<select id="comp-filter"><option value="pending">Pending / in progress</option><option value="all">All matches</option><option value="complete">Completed</option></select></label><label>Round<select id="comp-round"><option value="all">All rounds</option></select></label></div><div id="comp-matches" class="comp-match-list"></div></div>
+<div class="competition-block" id="comp-record"></div>
+</div>
+</section>
 <section class="view" id="view-rules" aria-label="CNR Rules and Database"><div class="section-heading"><div><div class="kicker">THE FORMAT ENGINE</div><h2>Rules & database</h2><p>Official October 19, 2026 TCG baseline plus your CNR modifications.</p></div></div>
 <div class="settings-card"><div class="kicker">CARD DATA SYNC</div><div class="sync-row"><div><h3>Full card catalog</h3><p>Download the current YGOPRODeck v7 snapshot to this device for offline searching. This requires internet and may use significant data.</p></div><button class="btn btn-primary" id="sync-full">↻ Sync database</button></div><div class="progress-track" id="sync-track" hidden><div class="progress-fill" id="sync-fill"></div></div><div id="sync-details" class="muted">Using bundled starter data until first successful sync.</div><div class="action-wrap spaced"><button class="btn btn-outline small" id="file-import-json">Import downloaded API JSON</button><input type="file" id="api-file" accept="application/json,.json" hidden/><button class="btn btn-quiet small" id="clear-data">Reset card database to seed</button></div></div>
 <div class="rule-grid"><div class="rule-tile"><div class="rule-icon">▤</div><strong>40–60</strong><span>Main Deck cards</span></div><div class="rule-tile"><div class="rule-icon">✦</div><strong>20</strong><span>Extra Deck max</span></div><div class="rule-tile"><div class="rule-icon">♡</div><strong>10,000</strong><span>Starting LP</span></div><div class="rule-tile"><div class="rule-icon">⇅</div><strong>2 Cards</strong><span>Draw if hand empty at Draw Phase start</span></div></div>
@@ -68,9 +92,9 @@
 <div class="settings-card"><div class="kicker">DATA SOURCES</div><h3>Sources & transparency</h3><p>Card names, effects and passcodes: <a href="https://ygoprodeck.com/api-guide/" target="_blank" rel="noopener">YGOPRODeck v7 API</a>. Official restrictions: <a href="https://www.yugioh-card.com/en/limited/list_2026-10-19/" target="_blank" rel="noopener">Konami October 19, 2026 list</a>.</p><p>No remotely hosted card images are loaded. Artwork licensing and self-hosted image caching can be addressed separately.</p><p id="rule-version" class="mono"></p></div>
 </section>
 </div></div></main>
-<nav class="bottom-nav" aria-label="Mobile navigation"><button data-view="discover" class="active"><span>⌕</span>Discover</button><button data-view="builder"><span>▦</span>Builder</button><button data-view="lab"><span>◈</span>Lab</button><button data-view="library"><span>▣</span>My Decks</button><button data-view="rules"><span>⚙</span>Settings</button></nav>
+<nav class="bottom-nav" aria-label="Mobile navigation"><button data-view="discover" class="active"><span>⌕</span>Discover</button><button data-view="builder"><span>▦</span>Builder</button><button data-view="lab"><span>◈</span>Lab</button><button data-view="competition"><span>⚔</span>Compete</button><button data-view="library"><span>▣</span>My Decks</button><button data-view="rules"><span>⚙</span>Settings</button></nav>
 </div>
 <div class="modal-backdrop" id="card-modal" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-top"><div class="kicker">CARD DETAILS</div><button class="icon-btn" id="modal-close" aria-label="Close card details">✕</button></div><div id="modal-body"></div></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-<script src="./lab.js" defer></script><script src="./logic.js" defer></script><script src="./db.js" defer></script><script src="./app.js" defer></script>
+<script src="./lab.js" defer></script><script src="./competition-core.js" defer></script><script src="./competition-ui.js" defer></script><script src="./logic.js" defer></script><script src="./db.js" defer></script><script src="./app.js" defer></script>
 </body></html>
