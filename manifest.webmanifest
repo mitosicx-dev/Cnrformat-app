@@ -1,0 +1,16 @@
+{
+  "id":"./index.html",
+  "name":"CNRFormat — Deck Lab",
+  "short_name":"CNRFormat",
+  "description":"Offline-first Yu-Gi-Oh! CNR format card catalog, deck builder and legality audit.",
+  "start_url":"./index.html",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#090e1b",
+  "theme_color":"#080e1e",
+  "orientation":"portrait-primary",
+  "icons":[
+    {"src":"./icon-192.png","type":"image/png","sizes":"192x192","purpose":"any maskable"},
+    {"src":"./icon-512.png","type":"image/png","sizes":"512x512","purpose":"any maskable"}
+  ]
+}

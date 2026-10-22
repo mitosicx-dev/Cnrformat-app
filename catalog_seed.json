@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "coverage": "Small audited starter fixture, NOT complete Yu-Gi-Oh database",
+  "cards": [
+    {"name":"Raigeki","card_type":"Spell Card","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Ame no Habakiri no Mitsurugi","card_type":"Ritual Effect Monster","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Forbidden Crown","card_type":"Spell Card","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Triple Tactics Talent","card_type":"Spell Card","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Mystical Space Typhoon","card_type":"Spell Card","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Crackle Blitzclique","card_type":"Effect Monster","categories":["hand_trap"],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Whisker Blitzclique","card_type":"Effect Monster","categories":["hand_trap"],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Angelechy Opening to e4","card_type":"Trap Card","categories":["hand_trap"],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Ash Blossom & Joyous Spring","card_type":"Effect Monster","categories":["hand_trap"],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Dark Magician","card_type":"Normal Monster","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Decode Talker","card_type":"Link Monster","categories":["link_monster"],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Odd-Eyes Pendulum Dragon","card_type":"Pendulum Effect Monster","categories":["pendulum"],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Branded Fusion","card_type":"Spell Card","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Elder Entity Norden","card_type":"Fusion Monster","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Mind Master","card_type":"Effect Monster","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Dogoran, the Mad Flame Kaiju","card_type":"Effect Monster","categories":[],"categories_reviewed":true,"tcg_released":true},
+    {"name":"Gameciel, the Sea Turtle Kaiju","card_type":"Effect Monster","categories":[],"categories_reviewed":true,"tcg_released":true}
+  ]
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#080e1e"/><meta name="description" content="Offline-first Yu-Gi-Oh! CNR deck builder with custom legality checks, card catalog, and YDKE deck export."/>
+<link rel="manifest" href="./manifest.webmanifest"/><link rel="icon" type="image/png" href="./icon-192.png"/>
+<link rel="stylesheet" href="./styles.css"/>
+<title>CNRFormat · Deck Lab</title>
+</head><body>
+<div id="app" class="app-shell">
+<header class="topbar">
+ <div class="brand"><div class="brand-emblem" aria-hidden="true">C</div><div><div class="brand-title">CNR<span>FORMAT</span></div><div class="brand-sub">YOUR FORMAT. YOUR META.</div></div></div>
+ <div class="top-actions"><span class="signal" id="signal"><span class="dot"></span><span id="online-text">Offline-ready</span></span><button class="icon-btn" id="install-btn" title="Install app" aria-label="Install app" hidden>⇩</button></div>
+</header>
+<main>
+<div class="hero"><div class="hero-glow"></div><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> COMPETITIVE DECK COMMAND CENTER <span class="hero-version">v1.0</span></div><h1>Build beyond<br/><em>the meta.</em></h1><p>Every card. Every restriction. One format built for your rules.</p><div class="hero-pills"><span class="pill">⚔ CNR Format</span><span class="pill">10,000 LP</span><span class="pill">20-card Extra</span></div></div><div class="hero-mark" aria-hidden="true"><div class="ring outer"></div><div class="ring inner"></div><div class="mark-letter">C</div><div class="ring-word">COMMANDER</div></div></div>
+<section class="stats" aria-label="Database and deck overview">
+ <div class="stat"><span class="stat-label">CARD DATABASE</span><strong id="stat-cards">—</strong><span class="stat-foot" id="stat-source">Loading snapshot</span></div>
+ <div class="stat"><span class="stat-label">ACTIVE DECK</span><strong id="stat-total">0 <small>/ 40 min</small></strong><span class="stat-foot" id="stat-deck">Main deck cards</span></div>
+ <div class="stat"><span class="stat-label">LEGALITY</span><strong id="stat-legality">REVIEW</strong><span class="stat-foot" id="stat-rules">Oct 19 '26 TCG</span></div>
+</section>
+<div class="desktop-grid">
+<aside class="side-nav" aria-label="App navigation"><div class="side-heading">WORKSPACE</div>
+<button class="nav-btn active" data-view="discover"><span class="nav-symbol">⌕</span><span>Card Database</span></button>
+<button class="nav-btn" data-view="builder"><span class="nav-symbol">▦</span><span>Deck Builder</span></button>
+<button class="nav-btn" data-view="library"><span class="nav-symbol">▣</span><span>My Decks</span></button>
+<button class="nav-btn" data-view="rules"><span class="nav-symbol">⚙</span><span>CNR Rules & Sync</span></button>
+<div class="side-footer"><div class="small-label">CURRENT RULESET</div><strong>CNR · 2026.10.21</strong><p>Provisional classifications. Verify before tournament use.</p></div>
+</aside>
+<div class="workspace">
+<section class="view active" id="view-discover" aria-label="Card Database"><div class="section-heading"><div><div class="kicker">EXPLORE THE CARD POOL</div><h2>Card Database</h2><p>Find cards, examine restrictions and add them to your deck.</p></div><button class="btn btn-quiet small" id="sync-shortcut">↻ Sync cards</button></div>
+<div class="search-panel"><label for="card-search" class="visually-hidden">Search card database</label><span class="search-icon">⌕</span><input id="card-search" type="search" placeholder="Search card name, effect, or archetype…" autocomplete="off"/><kbd>SEARCH</kbd></div>
+<div class="filterbar"><select id="filter-type" aria-label="Card type"><option value="all">All card types</option><option value="monster">Monsters</option><option value="spell">Spells</option><option value="trap">Traps</option></select><select id="filter-status" aria-label="Legality"><option value="all">Any legality</option><option value="LEGAL">Legal</option><option value="BANNED">Banned</option><option value="REVIEW">Needs review</option></select><select id="filter-sort" aria-label="Sort cards"><option value="name">Name A–Z</option><option value="archetype">Archetype A–Z</option></select></div>
+<div class="list-meta"><span id="results-caption">Loading cards…</span><span id="catalog-notice">Local catalog</span></div><div id="card-results" class="card-grid"></div><button id="show-more" class="btn btn-outline load-more" hidden>Load more cards ↓</button>
+</section>
+<section class="view" id="view-builder" aria-label="Deck Builder"><div class="section-heading"><div><div class="kicker">CREATE YOUR NEXT CHAMPION</div><h2>Deck Builder</h2><p>Construct, audit and export your CNR decks.</p></div><button class="btn btn-primary small" id="builder-find">+ Add Cards</button></div>
+<div class="deck-toolbar"><label for="deck-name">DECK NAME</label><input id="deck-name" maxlength="120" value="My CNR Deck"/><button class="btn btn-primary" id="save-deck">Save version</button><button class="btn btn-outline" id="new-deck">New deck</button></div>
+<div class="audit-panel" id="audit-panel"><div><strong>Checking deck…</strong></div></div>
+<div class="zone-head"><h3>Main Deck <span id="main-count">0 / 40–60</span></h3><small>MONSTERS · SPELLS · TRAPS</small></div><div id="zone-main" class="zone-list"></div>
+<div class="zone-head"><h3>Extra Deck <span id="extra-count">0 / 20</span></h3><small>FUSION · SYNCHRO · XYZ (NO LINKS)</small></div><div id="zone-extra" class="zone-list"></div>
+<div id="side-wrap" hidden><div class="zone-head"><h3>Imported Side Deck <span id="side-count"></span></h3><small>CNR DOES NOT ALLOW SIDE DECKS</small></div><div id="zone-side" class="zone-list"></div></div>
+<div class="tool-section"><div class="kicker">TRANSFER YOUR DECKS</div><h3>Import & export</h3><p>Supports YDK files, pasted YDK text and YDKE links. Unknown passcodes remain visible for review.</p><textarea id="import-text" rows="3" placeholder="Paste a ydke:// link or a #main / #extra YDK decklist…"></textarea><div class="action-wrap"><button id="import-paste" class="btn btn-outline">Import pasted deck</button><label class="btn btn-outline upload-label">Upload .ydk<input type="file" id="ydk-file" accept=".ydk,text/plain" hidden/></label><button id="copy-ydke" class="btn btn-outline">Copy YDKE</button><button id="download-ydk" class="btn btn-outline">Download YDK</button></div></div>
+</section>
+<section class="view" id="view-library" aria-label="Saved Decks"><div class="section-heading"><div><div class="kicker">YOUR COMPETITIVE ARSENAL</div><h2>My Decks</h2><p>Save versions, revisit builds and back up your collection.</p></div></div><div class="action-wrap spaced"><button id="backup-export" class="btn btn-outline">Download backup JSON</button><label class="btn btn-outline upload-label">Restore backup<input type="file" id="backup-file" accept="application/json,.json" hidden/></label></div><div id="saved-decks" class="saved-grid"></div></section>
+<section class="view" id="view-rules" aria-label="CNR Rules and Database"><div class="section-heading"><div><div class="kicker">THE FORMAT ENGINE</div><h2>Rules & database</h2><p>Official October 19, 2026 TCG baseline plus your CNR modifications.</p></div></div>
+<div class="settings-card"><div class="kicker">CARD DATA SYNC</div><div class="sync-row"><div><h3>Full card catalog</h3><p>Download the current YGOPRODeck v7 snapshot to this device for offline searching. This requires internet and may use significant data.</p></div><button class="btn btn-primary" id="sync-full">↻ Sync database</button></div><div class="progress-track" id="sync-track" hidden><div class="progress-fill" id="sync-fill"></div></div><div id="sync-details" class="muted">Using bundled starter data until first successful sync.</div><div class="action-wrap spaced"><button class="btn btn-outline small" id="file-import-json">Import downloaded API JSON</button><input type="file" id="api-file" accept="application/json,.json" hidden/><button class="btn btn-quiet small" id="clear-data">Reset card database to seed</button></div></div>
+<div class="rule-grid"><div class="rule-tile"><div class="rule-icon">▤</div><strong>40–60</strong><span>Main Deck cards</span></div><div class="rule-tile"><div class="rule-icon">✦</div><strong>20</strong><span>Extra Deck max</span></div><div class="rule-tile"><div class="rule-icon">♡</div><strong>10,000</strong><span>Starting LP</span></div><div class="rule-tile"><div class="rule-icon">⇅</div><strong>2 Cards</strong><span>Draw if hand empty at Draw Phase start</span></div></div>
+<div class="settings-card"><div class="kicker">RESTRICTION POLICY</div><h3>Strictest rule always wins</h3><p>Official TCG prohibition overrides a CNR copy allowance. Category exceptions only exempt that CNR category ban—not an official or named ban. This ruleset is a fixed snapshot dated October 21, 2026.</p><div class="rules-tags"><span>🚫 Hand traps</span><span>🚫 Links & Link-related</span><span>🚫 Pendulum</span><span>🚫 Forbidden Droplet</span><span>🚫 Forbidden Crown</span><span>1× Raigeki</span></div><p class="rule-warning">An unreviewed card is marked <strong>REVIEW</strong>, not legal. Complete category and TCG-release checks still require manual verification. New releases do not automatically change the fixed ruleset's cutoff.</p></div>
+<div class="settings-card"><div class="kicker">DATA SOURCES</div><h3>Sources & transparency</h3><p>Card names, effects and passcodes: <a href="https://ygoprodeck.com/api-guide/" target="_blank" rel="noopener">YGOPRODeck v7 API</a>. Official restrictions: <a href="https://www.yugioh-card.com/en/limited/list_2026-10-19/" target="_blank" rel="noopener">Konami October 19, 2026 list</a>.</p><p>No remotely hosted card images are loaded. Artwork licensing and self-hosted image caching can be addressed separately.</p><p id="rule-version" class="mono"></p></div>
+</section>
+</div></div></main>
+<nav class="bottom-nav" aria-label="Mobile navigation"><button data-view="discover" class="active"><span>⌕</span>Discover</button><button data-view="builder"><span>▦</span>Builder</button><button data-view="library"><span>▣</span>My Decks</button><button data-view="rules"><span>⚙</span>Settings</button></nav>
+</div>
+<div class="modal-backdrop" id="card-modal" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-top"><div class="kicker">CARD DETAILS</div><button class="icon-btn" id="modal-close" aria-label="Close card details">✕</button></div><div id="modal-body"></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="./logic.js" defer></script><script src="./db.js" defer></script><script src="./app.js" defer></script>
+</body></html>
