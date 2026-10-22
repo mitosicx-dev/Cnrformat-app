@@ -2,7 +2,7 @@
   "id":"./index.html",
   "name":"CNRFormat — Deck Lab",
   "short_name":"CNRFormat",
-  "description":"Offline-first Yu-Gi-Oh! CNR format card catalog, deck builder and legality audit.",
+  "description":"Offline-first Yu-Gi-Oh! CNR format card catalog, deck builder, legality audit and mathematical opening-hand lab.",
   "start_url":"./index.html",
   "scope":"./",
   "display":"standalone",

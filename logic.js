@@ -76,7 +76,7 @@
     return {status:'LEGAL',limit,reasons,categories,zone};
   }
   function newDeck(name='My CNR Deck'){
-    return {id:'draft',name,sections:{main:[],extra:[],side:[]},createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
+    return {id:'draft',name,sections:{main:[],extra:[],side:[]},analysisRoles:{},createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
   }
   function cloneDeck(d){return JSON.parse(JSON.stringify(d));}
   function normalizeDeck(d){
@@ -85,7 +85,7 @@
       const arr=d?.sections?.[zone];
       sections[zone]=Array.isArray(arr)?arr.filter(x=>typeof x.key==='string'&&Number.isSafeInteger(x.qty)&&x.qty>0).slice(0,180).map(x=>({key:x.key,qty:Math.min(x.qty,200)})):[];
     }
-    return {id:String(d?.id||'draft'),name:String(d?.name||'My CNR Deck').slice(0,120),sections,createdAt:d?.createdAt||new Date().toISOString(),updatedAt:d?.updatedAt||new Date().toISOString()};
+    return {id:String(d?.id||'draft'),name:String(d?.name||'My CNR Deck').slice(0,120),sections,analysisRoles:(typeof globalThis!=='undefined'&&globalThis.CNRLab?globalThis.CNRLab.normalizeRoles(d?.analysisRoles):(d?.analysisRoles&&typeof d.analysisRoles==='object'&&!Array.isArray(d.analysisRoles)?d.analysisRoles:{})),createdAt:d?.createdAt||new Date().toISOString(),updatedAt:d?.updatedAt||new Date().toISOString()};
   }
   function editQty(deck,zone,key,delta){
     if(!['main','extra','side'].includes(zone))throw Error('Invalid zone');
